@@ -1,0 +1,28 @@
+spring:
+  datasource:
+    url: jdbc:h2:mem:shortener;MODE=PostgreSQL;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: ""
+
+  jpa:
+    open-in-view: false
+    hibernate:
+      # Schema from entities; Flyway (Postgres-only) stays off so the context
+      # loads without a real database.
+      ddl-auto: create-drop
+
+  flyway:
+    enabled: false
+
+  # Redis beans are excluded under the "test" profile (in-memory cache/counter
+  # impls are used instead); disable the autoconfigured Redis health check too.
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.redis.RedisReactiveAutoConfiguration
+
+app:
+  base-url: http://localhost:8080
+  rate-limit:
+    enabled: false

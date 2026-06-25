@@ -1,0 +1,30 @@
+spring:
+  application:
+    name: url-shortener
+
+server:
+  port: ${SERVER_PORT:8080}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+  endpoint:
+    health:
+      probes:
+        enabled: true
+      show-details: never
+
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+app:
+  base-url: ${APP_BASE_URL:http://localhost:8080}
+  cache-ttl-seconds: ${CACHE_TTL_SECONDS:3600}
+  rate-limit:
+    enabled: ${RATE_LIMIT_ENABLED:true}
+    capacity: ${RATE_LIMIT_CAPACITY:20}
+    refill-tokens: ${RATE_LIMIT_REFILL_TOKENS:20}
+    refill-period-seconds: ${RATE_LIMIT_REFILL_PERIOD_SECONDS:60}
